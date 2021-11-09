@@ -3,19 +3,23 @@
 
 int main()
 {
-    int n;
     do
     {
-        int n, i = 1;
+        int n, i = 2;
         double res = 0;
         scanf("%d", &n);
-        for(; i < n; i++)
+		if(n > 0)
+		{
+			printf("1");
+			res = 1;
+		}
+		
+        for(; i <= n; i++)
         {
-            printf("1/%d + ", i);
+            printf(" + 1/%d", i);
             res += 1.0/i;
         }
-        res += 1.0/i;
-        printf("1/%d = %lf\n", i, res);
+        printf(" = %lf\n", res);
 
         printf("wykonac jeszcze raz? [y/n] \n");
     } while(getche() == 'y');
