@@ -11,10 +11,8 @@ int main()
 		if(n >= 1 && n <= 15)
 			for(int a = 1; a <= n; a++)
 			{
-				for(int b = 0; b < a-1; b++)
-					printf(" ");
-				for(int b = 0; b < (n-a)*2+1; b++)
-					printf("*");
+				for(int b = 0; b < n*2-a; b++)
+					printf(b < a-1 ? " " : "*");
 					
 				printf("\n");
 			}
