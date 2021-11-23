@@ -7,10 +7,9 @@ int main()
     do
     {
 		int n, res = 0;
-		scanf("%d", &n);
 		char str[10];
 		
-        for(int a = 0; a < n; a++)
+        for(scanf("%d", &n); n > 0; n--)
 		{
 			scanf("%s", str);
 			if(str[strlen(str)-1] == 'a')
