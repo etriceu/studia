@@ -32,8 +32,7 @@ int main()
         for(int n = 0; n < 100; n++)
 		{
 			int r = rand()%80;
-			r -= r < 40 ? 50 : 29;
-			if(r%2 == 0)
+			if((r < 40 ? r-50 : r-29)%2 == 0)
 				sum += r;
 		}
 
