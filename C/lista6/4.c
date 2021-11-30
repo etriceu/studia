@@ -15,7 +15,7 @@ int main()
 			printf("%d ", tab[n]);
 		}
 		
-		for(int n, i = 100, end = 0; !end; i--)
+		for(int n, i = 99, end = 0; !end; i--)
 			for(n = 0, end = 1; n < i; n++)
 				if(tab[n] > tab[n+1])
 				{
