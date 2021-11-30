@@ -7,7 +7,7 @@
 int main()
 {
 	srand(time(NULL));
-    float m[N][N] = {{0}};
+    float m[N][N];
 
 	for(int y = 0; y < N; y++, printf("\n"))
 		for(int x = 0; x < N; x++)
