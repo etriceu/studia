@@ -5,11 +5,10 @@
 int main()
 {
     int m[N][N], col, sum = 0;
-	for(int *i = m[0], n; i < m[0]+N*N; i++)
+	for(int *i = m[0]; i < m[0]+N*N; i++)
 	{
-		scanf("%d", &n);
-		*i = n;
-		if(n < -5 || n >= 10 || n == 0)
+		scanf("%d", i);
+		if(*i < -5 || *i >= 10 || *i == 0)
 			i--;
 	}
 	
