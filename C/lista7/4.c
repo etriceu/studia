@@ -12,7 +12,7 @@ int main()
 	for(int y = 0; y < N; y++, printf("\n"))
 		for(int x = 0; x < N; x++)
 		{
-			m[x][y] = x < y ? 0 : rand()/(RAND_MAX+1.0)*10;
+			m[x][y] = x < y ? 0 : rand()/(RAND_MAX+.0)*10;
 			printf("%5.2f ", m[x][y]);
 		}
 		
