@@ -2,12 +2,12 @@
 #include <time.h>
 #include <stdlib.h>
 
-#define N 10
-
 int main()
 {
 	srand(time(NULL));
-    int m[N][N];
+	int N;
+	scanf("%d", &N);
+	int m[N][N];
 	for(int y = 0; y < N; y++, printf("\n"))
 		for(int x = 0; x < N; x++)
 		{
