@@ -14,10 +14,7 @@ int main()
 	int m[size][size];
 	for(int y = 0; y < size; y++, printf("\n"))
 		for(int x = 0; x < size; x++)
-		{
-			m[x][y] = rand()%21-10;
-			printf("%3d ", m[x][y]);
-		}
+			printf("%3d ", m[x][y] = rand()%21-10);
 		
 	for(int n = 0; n < size; n++)
 	{
