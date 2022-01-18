@@ -47,7 +47,7 @@ void show(int id)
 		{
 			if(id == -1)
 				printf("\nid: %d", n);
-			printf(	"\nimie: %s\nnazwisko: %s\nwiek: %d\nPESEL: %s\nemail: %s\n",
+			printf(	"\nimie: %s\nnazwisko: %s\nwiek: %d\nPESEL: %.11s\nemail: %s\n",
 					obj->person.imie, obj->person.nazwisko, obj->person.wiek,
 					obj->person.PESEL, obj->person.email);
 			if(id != -1)
@@ -69,6 +69,8 @@ void remove(int id)
 				list = (List*)obj->next;
 				free(obj);
 				obj = list;
+				if(obj == NULL)
+					break;
 			}
 			else
 			{
@@ -103,7 +105,7 @@ void read()
 		fread(&person, sizeof(tperson), 1, file);
 		if(feof(file))
 			break;
-		printf(	"\nimie: %s\nnazwisko: %s\nwiek: %d\nPESEL: %s\nemail: %s\n",
+		printf(	"\nimie: %s\nnazwisko: %s\nwiek: %d\nPESEL: %.11s\nemail: %s\n",
 					person.imie, person.nazwisko, person.wiek,
 					person.PESEL, person.email);
 	}
