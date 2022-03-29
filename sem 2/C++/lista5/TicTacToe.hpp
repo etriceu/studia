@@ -12,7 +12,7 @@ public:
 private:
 	
 	void newGame();
-	int miniMax(std::vector <char> map, char turn, int depth = 1);
+	int miniMax(std::vector <char> map, char turn, clock_t time, int depth = 1);
 	void play();
 	void display();
 	char checkWin(std::vector <char> map);
@@ -24,7 +24,6 @@ private:
 	std::vector <char> map;
 	int cx, cy;
 	char turn;
-	clock_t time;
 	
 	static constexpr int MAX_TIME = 10;
 	static constexpr int MAX_DEPTH = 7;

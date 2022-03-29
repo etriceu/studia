@@ -19,19 +19,14 @@ void TicTacToe::newGame()
 	turn = 'X';
 }
 
-int TicTacToe::miniMax(vector <char> map, char turn, int depth)
+int TicTacToe::miniMax(vector <char> map, char turn, clock_t time, int depth)
 {
-	if(depth == 1)
-		time = clock()+CLOCKS_PER_SEC*MAX_TIME;
-	
 	if(time < clock() || depth > MAX_DEPTH)
 		return 0;
 	
 	char win = checkWin(map);
-	if(win == 1)
-		return turn == team ? 100 : -100;
-	else if(win == -1)
-		return 0;
+	if(win != 0)
+		return win == -1 ? 0 : turn == team ? 100 : -100;
 	
 	vector <int> tab(map.size());
 	int min = -1, max = -1;
@@ -40,7 +35,7 @@ int TicTacToe::miniMax(vector <char> map, char turn, int depth)
 		{
 			vector <char> tmp = map;
 			tmp[n] = turn;
-			int res = miniMax(tmp, turn == 'X' ? 'O' : 'X', depth+1);
+			int res = miniMax(tmp, turn == 'X' ? 'O' : 'X', time, depth+1);
 			tab[n] = res;
 			if(min == -1) min = n;
 			if(max == -1) max = n;
@@ -76,7 +71,7 @@ void TicTacToe::play()
 		}
 		else
 		{
-			map[miniMax(map, turn)] = turn;
+			map[miniMax(map, turn, clock()+CLOCKS_PER_SEC*MAX_TIME)] = turn;
 			check = true;
 		}
 		
@@ -87,14 +82,9 @@ void TicTacToe::play()
 			if(res)
 			{
 				display();
-				setColor(turn == 'X' ? RED : BLUE);
-				if(res == 1)
-					cout<<"Player "<<turn<<" wins!"<<endl;
-				else if(res == -1)
-				{
-					setColor(WHITE);
-					cout<<"It's draw."<<endl;
-				}
+				setColor(res == -1 ? WHITE : res == 'X' ? RED : BLUE);
+				if(res > 0) cout<<"Player "<<turn<<" wins!"<<endl;
+				else cout<<"It's draw."<<endl;
 				
 				setColor(WHITE);
 				cout<<"Do you want to play again? [y/n]";
@@ -157,10 +147,10 @@ char TicTacToe::checkWin(vector <char> map)
 		if(map[(size-y-1)+y*size] == 'X') xu++;
 		else if(map[(size-y-1)+y*size] == 'O') ou++;
 		
-		if(xh == size || oh == size || xv == size ||
-			ov == size || xd == size || od == size ||
-			xu == size || ou == size)
-			return 1;
+		if(xh == size || xv == size || xd == size || xu == size)
+			return 'X';
+		else if(oh == size || ov == size || od == size || ou == size)
+			return 'O';
 	}
 	return empty ? 0 : -1;
 }
