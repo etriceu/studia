@@ -1,4 +1,5 @@
 #include <vector>
+#include <ctime>
 
 class TicTacToe
 {
@@ -8,23 +9,23 @@ public:
 	{
 		menu();
 	}
-	
+
 private:
-	
+
 	void newGame();
 	int miniMax(std::vector <char> map, char turn, clock_t time, int depth = 1);
 	void play();
 	void display();
 	char checkWin(std::vector <char> map);
 	void menu();
-	
+
 	int size = 3;
 	char team = 'R';
 	bool ai = false;
 	std::vector <char> map;
 	int cx, cy;
 	char turn;
-	
-	static constexpr int MAX_TIME = 10;
-	static constexpr int MAX_DEPTH = 7;
+
+	static constexpr int MAX_TIME = 5;
+	static constexpr int MAX_DEPTH = 6;
 };

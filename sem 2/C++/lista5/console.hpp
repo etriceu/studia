@@ -17,7 +17,7 @@
 #endif
 
 enum {	BLACK = 0, BLUE = 9, GREEN, CYAN, RED, MAGENTA, YELLOW, WHITE,
-		BG_WHITE = 0xf0, BG_BLACK = 0x00};
+		BG_WHITE = 0x70, BG_BLACK = 0x00};
 
 void setColor(char color)
 {

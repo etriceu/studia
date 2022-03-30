@@ -13,7 +13,7 @@ void TicTacToe::newGame()
 	map = vector<char>(size*size, ' ');
 	if(team == 'R')
 		team = rand()%2 ? 'X' : 'O';
-	
+
 	cx = 0;
 	cy = 0;
 	turn = 'X';
@@ -23,11 +23,11 @@ int TicTacToe::miniMax(vector <char> map, char turn, clock_t time, int depth)
 {
 	if(time < clock() || depth > MAX_DEPTH)
 		return 0;
-	
+
 	char win = checkWin(map);
 	if(win != 0)
 		return win == -1 ? 0 : turn == team ? 100 : -100;
-	
+
 	vector <int> tab(map.size());
 	int min = -1, max = -1;
 	for(int n = 0; n < size*size; n++)
@@ -42,7 +42,7 @@ int TicTacToe::miniMax(vector <char> map, char turn, clock_t time, int depth)
 			if(tab[min] > tab[n]) min = n;
 			if(tab[max] < tab[n]) max = n;
 		}
-	
+
 	int i = turn == team ? min : max;
 	if(depth == 1)
 		return i;
@@ -74,7 +74,7 @@ void TicTacToe::play()
 			map[miniMax(map, turn, clock()+CLOCKS_PER_SEC*MAX_TIME)] = turn;
 			check = true;
 		}
-		
+
 		if(check)
 		{
 			check = false;
@@ -85,7 +85,7 @@ void TicTacToe::play()
 				setColor(res == -1 ? WHITE : res == 'X' ? RED : BLUE);
 				if(res > 0) cout<<"Player "<<turn<<" wins!"<<endl;
 				else cout<<"It's draw."<<endl;
-				
+
 				setColor(WHITE);
 				cout<<"Do you want to play again? [y/n]";
 				char key = getch();
@@ -141,12 +141,12 @@ char TicTacToe::checkWin(vector <char> map)
 			if(map[y+x*size] == 'X') xv++;
 			else if(map[y+x*size] == 'O') ov++;
 		}
-		
+
 		if(map[y+y*size] == 'X') xd++;
 		else if(map[y+y*size] == 'O') od++;
 		if(map[(size-y-1)+y*size] == 'X') xu++;
 		else if(map[(size-y-1)+y*size] == 'O') ou++;
-		
+
 		if(xh == size || xv == size || xd == size || xu == size)
 			return 'X';
 		else if(oh == size || ov == size || od == size || ou == size)
@@ -161,18 +161,18 @@ void TicTacToe::menu()
 	enum {PLAY, TEAM, VS, SIZE, EXIT};
 	const int posMax = sizeof(tab)/sizeof(tab[0]);
 	int pos = 0;
-	
+
 	while(1)
 	{
 		tab[VS] = ai ? "P vs AI" : "P vs P";
 		tab[TEAM] = team == 'R' ? "Random" : team == 'X' ? "X" : "O";
-		
+
 		system("cls");
 		setColor(RED);
 		cout<<"Tic Tac Toe\n";
 		setColor(BLUE);
 		cout<<"----Menu----\n";
-		
+
 		for(int n = 0; n < posMax; n++)
 		{
 			setColor(pos == n ? MAGENTA : WHITE);
@@ -180,7 +180,7 @@ void TicTacToe::menu()
 			if(n == SIZE) cout<<size;
 				cout<<endl;
 		}
-		
+
 		setColor(BLACK | BG_BLACK);
 		char key = getch();
 		if(key == DOWN && pos < posMax-1) pos++;

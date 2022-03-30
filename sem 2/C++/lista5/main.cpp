@@ -1,9 +1,6 @@
 ﻿#include <cstdlib>
-#include <ctime>
 
 #include "TicTacToe.hpp"
-
-using namespace std;
 
 int main()
 {
