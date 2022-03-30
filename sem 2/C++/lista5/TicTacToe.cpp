@@ -129,29 +129,34 @@ void TicTacToe::display()
 
 char TicTacToe::checkWin(vector <char> map)
 {
-	int empty = 0, xu = 0, ou = 0, xd = 0, od = 0;
-	for(int y = 0; y < size; y++)
-	{
-		int xh = 0, oh = 0, xv = 0, ov = 0;
-		for(int x = 0; x < size; x++)
-		{
-			if(map[x+y*size] == ' ') empty++;
-			if(map[x+y*size] == 'X') xh++;
-			else if(map[x+y*size] == 'O') oh++;
-			if(map[y+x*size] == 'X') xv++;
-			else if(map[y+x*size] == 'O') ov++;
-		}
+    int empty = 0;
+    for(int a = 0; a < size-3; a++)
+        for(int b = 0; b < size-3; b++)
+        {
+            int xu = 0, ou = 0, xd = 0, od = 0;
+            for(int y = a; y < a+3; y++)
+            {
+                int xh = 0, oh = 0, xv = 0, ov = 0;
+                for(int x = b; x < b+3; x++)
+                {
+                    if(map[x+y*size] == ' ') empty++;
+                    if(map[x+y*size] == 'X') xh++;
+                    else if(map[x+y*size] == 'O') oh++;
+                    if(map[y+x*size] == 'X') xv++;
+                    else if(map[y+x*size] == 'O') ov++;
+                }
 
-		if(map[y+y*size] == 'X') xd++;
-		else if(map[y+y*size] == 'O') od++;
-		if(map[(size-y-1)+y*size] == 'X') xu++;
-		else if(map[(size-y-1)+y*size] == 'O') ou++;
+                if(map[y+y*size] == 'X') xd++;
+                else if(map[y+y*size] == 'O') od++;
+                if(map[(size-y-1)+y*size] == 'X') xu++;
+                else if(map[(size-y-1)+y*size] == 'O') ou++;
 
-		if(xh == size || xv == size || xd == size || xu == size)
-			return 'X';
-		else if(oh == size || ov == size || od == size || ou == size)
-			return 'O';
-	}
+                if(xh == 3 || xv == 3 || xd == 3 || xu == 3)
+                    return 'X';
+                else if(oh == 3 || ov == 3 || od == 3 || ou == 3)
+                    return 'O';
+            }
+        }
 	return empty ? 0 : -1;
 }
 
