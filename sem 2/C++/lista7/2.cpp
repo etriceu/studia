@@ -28,7 +28,7 @@ public:
 	double median()
 	{
 		size_t s = this->size();
-		return s%2 ? (this->at(s/2-1)+this->at(s/2))/2. : this->at(s/2);
+		return s%2 ? this->at(s/2) : (this->at(s/2-1)+this->at(s/2))/2.;
 	}
 	
 	std::vector <T> mode()
