@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+	<div id="warn" style="height: 32px;"></div>
+
+	<div style="height: 100%; float: left;">
+		<table id="table">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Manufacturer</th>
+				<th>Cores</th>
+				<th>Memory (MB)</th>
+				<th>Clock (MHz)</th>
+				<th>PSU (W)</th>
+				<th>Parallel<br>connection</th>
+				<th>Open source<br>drivers</th>
+			</tr>
+		</table>
+	</div>
+	<div style="height: 100%; float: left;">
+		<br><br>
+		<table id="table2">
+		</table>
+	</div>
+	<div style="float: right;">
+		<label>Name</label><br>
+		<input type="text" id="Name"><br>
+		<label>Manufacturer</label><br>
+		<input type="text" id="Manufacturer"><br>
+		<label>Cores</label><br>
+		<input type="number" id="Cores"><br>
+		<label>Memory</label><br>
+		<input type="number" id="Memory"><br>
+		<label>Clock</label><br>
+		<input type="number" id="Clock"><br>
+		<label>PSU</label><br>
+		<input type="number" id="PSU"><br>
+		<label>Parallel connection</label>
+		<input type="checkbox" id="Parallel"><br>
+		<label>Open source drivers</label>
+		<input type="checkbox" id="Open"><br>
+		<button onclick="clickInsert()">Insert</button>
+		<br><br>
+		<label>ID</label><br>
+		<input type="number" id="ID"><br>
+		<button onclick="remove()">Remove</button>
+		<br><br>
+		<button onclick="save()">Export</button>
+		<button onclick="load()">Import</button>
+		<br><br>
+		<label>Count</label><br>
+		<input type="number" id="Count"><br>
+		<button onclick="random()">Random</button>
+		<br><br>
+		<select id="typeSearch1">
+			<option value=-1>None</option>
+			<option value=0>ID</option>
+			<option value=1>Name</option>
+			<option value=2>Manufacturer</option>
+			<option value=3>Cores</option>
+			<option value=4>Memory</option>
+			<option value=5>Clock</option>
+			<option value=6>PSU</option>
+			<option value=7>Parallel connection</option>
+			<option value=8>Open source</option>
+        </select>
+		<input type="text" id="searchName1"><br>
+		<select id="typeSearch2">
+			<option value=-1>None</option>
+			<option value=0>ID</option>
+			<option value=1>Name</option>
+			<option value=2>Manufacturer</option>
+			<option value=3>Cores</option>
+			<option value=4>Memory</option>
+			<option value=5>Clock</option>
+			<option value=6>PSU</option>
+			<option value=7>Parallel connection</option>
+			<option value=8>Open source</option>
+        </select>
+		<input type="text" id="searchName2"><br>
+		<button onclick="search()">Search</button>
+		<button onclick="binarySearch()">Binary search</button>
+		<button onclick="chainSearch()">Chain search</button>
+	</div>
+	<script src="code.js"></script>
+</body>
+</html>
