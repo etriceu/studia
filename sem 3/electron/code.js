@@ -84,7 +84,7 @@ function randomText() {
 function random() {
 	count = document.getElementById("Count").value;
 	if(count <= 0 || count == ""){ warn.innerHTML = "Count: value must be positive and integer."; return;}
-	let last = [], end = [], str = "";
+	let last = [], str = "";
 	for(let n = 0; n < columns; n++) {
 		indexes.push(new Map());
 		last.push(new Map());
