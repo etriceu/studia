@@ -4,7 +4,7 @@ nextID = 0;
 warn = document.getElementById("warn");
 tHtml = document.getElementById("table");
 const columns = 9;
-tData = [], tChain = [], indexes = [];
+tData = [], tChain = [], indexes = [], inversion = [];
 
 function clearHTMLTable() {
 	for(var n = 0; n < tData.length; n++) {
@@ -36,7 +36,7 @@ function insert(t) {
 }
 
 function clickInsert() {
-	insert([nextID, document.getElementById("Name").value, document.getElementById("Manufacturer").value, document.getElementById("Cores").value, document.getElementById("Memory").value, document.getElementById("Clock").value, document.getElementById("PSU").value, document.getElementById("Parallel").checked, document.getElementById("Open").checked]);
+	insert([nextID, document.getElementById("Name").value, document.getElementById("Manufacturer").value, document.getElementById("Cores").value, document.getElementById("Memory").value, document.getElementById("Clock").value, document.getElementById("PSU").value, String(document.getElementById("Parallel").checked), String(document.getElementById("Open").checked)]);
 }
 
 function remove() {
@@ -45,7 +45,7 @@ function remove() {
 	if(id == "" || id < 0){ warn.innerHTML = "ID: value can't be negative or empty."; return;}
 	document.getElementById(String(id)).remove();
 	for(var n = 0; n < tData.length; n++)
-		if(String(tData[n][0]) == String(id)) {
+		if(tData[n][0] == id) {
 			tData.splice(n, 1);
 			break;
 		}
@@ -84,20 +84,24 @@ function randomText() {
 function random() {
 	count = document.getElementById("Count").value;
 	if(count <= 0 || count == ""){ warn.innerHTML = "Count: value must be positive and integer."; return;}
-	let last = [], str = "";
+	let last = [], end = [], str = "";
 	for(let n = 0; n < columns; n++) {
 		indexes.push(new Map());
 		last.push(new Map());
+		inversion.push(new Map());
 	}
 	for(let n = 0; n < count; n++) {
-		t = [nextID, randomText(), randomText(), Math.round(Math.random() * 100+1), Math.round(Math.random() * 100+1), Math.round(Math.random() * 100+1), Math.round(Math.random() * 100+1), Math.random() > 0.5 ? true : false, Math.random() > 0.5 ? true : false];
+		t = [nextID, randomText(), randomText(), Math.round(Math.random() * 100+1), Math.round(Math.random() * 100+1), Math.round(Math.random() * 100+1), Math.round(Math.random() * 100+1), Math.random() > 0.5 ? "true" : "false", Math.random() > 0.5 ? "true" : "false"];
 		insert(t);
 		tChain.push(new Array(columns));
 		for(let m = 1; m < columns; m++) {
+			let tmp = String(t[m]);
+			if(!inversion[m].has(tmp)) inversion[m].set(tmp, []);
+			inversion[m].get(tmp).push(nextID-1);
 			tChain[n][m] = -1;
-			if(!indexes[m].has(String(t[m]))) indexes[m].set(String(t[m]), n);
-			else tChain[last[m].get(String(t[m]))][m] = n;
-			last[m].set(String(t[m]), n);
+			if(!indexes[m].has(tmp)) indexes[m].set(tmp, n);
+			else tChain[last[m].get(tmp)][m] = n;
+			last[m].set(tmp, n);
 		}
 	}
 	for(let i = 0; i < tChain.length; i++) {
@@ -107,45 +111,60 @@ function random() {
 		str += "</td></tr>";
 	}
 	document.getElementById("table2").innerHTML = str;
+	str = "";
+	inversion[7].forEach(function(v, k){
+		str += "<td>" + k;
+		for(let n = 0; n < v.length; n++)
+			str += "</td><td>" + v[n];
+		str += "</td></tr>";
+	});
+	document.getElementById("table3").innerHTML = str;
 }
 
 function search() {
-	value1 = String(document.getElementById("searchName1").value);
+	value1 = document.getElementById("searchName1").value;
 	column1 = document.getElementById("typeSearch1").value;
-	value2 = String(document.getElementById("searchName2").value);
+	value2 = document.getElementById("searchName2").value;
 	column2 = document.getElementById("typeSearch2").value;
 	clearHTMLTable();
 	for(var n = 0; n < tData.length; n++)
-		if((String(tData[n][column1]) == value1 || column1 == -1) && (column2 == -1 || String(tData[n][column2]) == value2))
+		if((tData[n][column1] == value1 || column1 == -1) && (column2 == -1 || tData[n][column2] == value2))
 			insertHtml(tData[n]);
 }
 
 function binarySearch() {
-	value1 = String(document.getElementById("searchName1").value);
+	value1 = document.getElementById("searchName1").value;
 	column1 = document.getElementById("typeSearch1").value;
 	clearHTMLTable();
 	tData.sort(function(a, b){
-		if(String(a[column1]) < String(b[column1])) return -1;
-		else if(String(a[column1]) > String(b[column1])) return 1;
+		if(a[column1] < b[column1]) return -1;
+		else if(a[column1] > b[column1]) return 1;
 		return 0;});
 	beg = 0, end = tData.length - 1;
 	while (beg <= end) {
 		m = Math.floor((beg+end)/2);
-		if(String(tData[m][column1]) == value1) {
-			for(var x = m; x < tData.length && String(tData[x][column1]) == value1; x++)
+		if(tData[m][column1] == value1) {
+			for(var x = m; x < tData.length && tData[x][column1] == value1; x++)
 				insertHtml(tData[x]);
-			for(var x = m-1; x >= 0 && String(tData[x][column1]) == value1; x--)
+			for(var x = m-1; x >= 0 && tData[x][column1] == value1; x--)
 				insertHtml(tData[x]);
 			break;
-		} else if(String(tData[m][column1]) < value1) beg = m + 1;
+		} else if(tData[m][column1] < value1) beg = m + 1;
 		else end = m - 1;
 	}
 }
 
 function chainSearch() {
-	value1 = String(document.getElementById("searchName1").value);
+	value1 = document.getElementById("searchName1").value;
 	column1 = document.getElementById("typeSearch1").value;
 	clearHTMLTable();
 	for(let i = indexes[column1].get(value1); i != -1; i = tChain[i][column1])
 		insertHtml(tData[i]);
+}
+
+function inversionSearch() {
+	value1 = document.getElementById("searchName1").value;
+	column1 = document.getElementById("typeSearch1").value;
+	clearHTMLTable();
+	inversion[column1].get(value1).forEach(function(i){insertHtml(tData[i])});
 }
