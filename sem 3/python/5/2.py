@@ -20,6 +20,7 @@ def click(id):
         label.configure(text="Player: "+turn)
         
         t = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6], [0, 3, 6], [1, 4, 7], [2, 5, 8]]
+        
         for a in t:
             if(buttons[a[0]].cget("text") != " "):
                 win = True
@@ -29,17 +30,26 @@ def click(id):
                 
                 if(win):
                     label.configure(text="Player "+buttons[a[0]].cget("text")+" won!")
+        
+        draw = True
+        
+        for i in range(0, 9):
+            if(buttons[i].cget("text") == " "):
+                draw = False
+                
+        if(draw and ~win):
+            label.configure(text="It's draw!")
+            
 
-
-buttons.append(Button(root, text=" ", width=1, command=lambda: click(0)))
-buttons.append(Button(root, text=" ", width=1, command=lambda: click(1)))
-buttons.append(Button(root, text=" ", width=1, command=lambda: click(2)))
-buttons.append(Button(root, text=" ", width=1, command=lambda: click(3)))
-buttons.append(Button(root, text=" ", width=1, command=lambda: click(4)))
-buttons.append(Button(root, text=" ", width=1, command=lambda: click(5)))
-buttons.append(Button(root, text=" ", width=1, command=lambda: click(6)))
-buttons.append(Button(root, text=" ", width=1, command=lambda: click(7)))
-buttons.append(Button(root, text=" ", width=1, command=lambda: click(8)))
+buttons.append(Button(root, text=" ", font=("Arial", 25), width=1, command=lambda: click(0)))
+buttons.append(Button(root, text=" ", font=("Arial", 25), width=1, command=lambda: click(1)))
+buttons.append(Button(root, text=" ", font=("Arial", 25), width=1, command=lambda: click(2)))
+buttons.append(Button(root, text=" ", font=("Arial", 25), width=1, command=lambda: click(3)))
+buttons.append(Button(root, text=" ", font=("Arial", 25), width=1, command=lambda: click(4)))
+buttons.append(Button(root, text=" ", font=("Arial", 25), width=1, command=lambda: click(5)))
+buttons.append(Button(root, text=" ", font=("Arial", 25), width=1, command=lambda: click(6)))
+buttons.append(Button(root, text=" ", font=("Arial", 25), width=1, command=lambda: click(7)))
+buttons.append(Button(root, text=" ", font=("Arial", 25), width=1, command=lambda: click(8)))
     
 for n in range(0, 9):
     buttons[n].grid(row=int(n/3)+1, column=n%3)

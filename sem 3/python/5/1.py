@@ -26,7 +26,7 @@ def click():
     
     links = [url.get()]
     for a in parser.find_all('a'):
-        if a.attrs['href'][0] == '/':
+        if a.attrs['href'][0] == 'h':
             links.append(url.get()+a.attrs['href'])
     
     for link in links:
@@ -39,21 +39,28 @@ def click():
                 if a.string == None:
                     continue
                 for word in a.string.split():
-                    if word in words:
-                        words[word] += 1
-                    else:
-                        words[word] = 1
+                    if len(word) > 1:
+                        if word in words:
+                            words[word] += 1
+                        else:
+                            words[word] = 1
         except:
             pass
     
     word = ""
+    oldWord = ""
     count = 0
+    oldCount = 0;
     for w, v in words.items():
         if v > count:
+            oldCount = count;
             count = v
-            word = w
+            oldWord = word
+            word = [w];
+        elif v == count:
+            word.append(w)
     
-    label.config(text=word)
+    label.config(text="{} - {}\n{} - {}".format(word, count, oldWord, oldCount))
     
 
 for a,b in OPTIONS:
